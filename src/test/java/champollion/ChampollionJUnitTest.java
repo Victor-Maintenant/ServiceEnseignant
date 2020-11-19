@@ -3,6 +3,8 @@ package champollion;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Date;
+
 public class ChampollionJUnitTest {
 	Enseignant untel;
 	UE uml, java;
@@ -22,6 +24,12 @@ public class ChampollionJUnitTest {
 	}
 	
 	@Test
+	public void testNouvelEnseignantVide() {
+		assertTrue(untel.getInterventions().isEmpty());
+		assertTrue(untel.getServicePrevus().isEmpty());
+	}
+	
+	@Test
 	public void testAjouteHeures() {
                 // 10h TD pour UML
 		untel.ajouteEnseignement(uml, 0, 10, 0);
@@ -37,4 +45,24 @@ public class ChampollionJUnitTest {
 		
 	}
 	
+	@Test
+	public void testHeurePrevue() {
+		untel.ajouteEnseignement(java, 10, 10, 10);
+		untel.ajouteEnseignement(uml, 0, 20, 0);
+		assertEquals(52,untel.heuresPrevues());
+	}
+	
+	@Test
+	public void testAjoutIntervention() {
+		Date debut = new Date();
+		untel.ajouteIntervention(uml, debut, 2);
+		assertEquals(uml,untel.getInterventions().get(untel.getInterventions().size()-1).getMatiere());
+	}
+	
+	@Test
+	public void testSalle() {
+		Date debut = new Date();
+		untel.ajouteIntervention(uml, debut, 2);
+		untel.getInterventions().get(untel.getInterventions().size()-1).
+	}
 }
