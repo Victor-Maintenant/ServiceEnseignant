@@ -1,6 +1,5 @@
 package champollion;
 
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -89,9 +88,10 @@ public class Enseignant extends Personne {
      * "équivalent TD"
      *
      * @return le nombre total d'heures "équivalent TD" réalisées pour cet enseignant, arrondi à l'entier le plus proche
+     * @throws Exception 
      *
      */
-    public int heuresPlanifiees() {
+    public int heuresPlanifiees() throws Exception {
     	int res = 0;
     	for (Intervention i : this.getInterventions()) {
     		if (!i.isAnnulee()) {
@@ -101,8 +101,11 @@ public class Enseignant extends Personne {
         		else if(i.getType() == TypeIntervention.TP) {
     				res += i.getDuree()*0.75;
     			}
-        		else {
+        		else if(i.getType() == TypeIntervention.TD){
         			res += i.getDuree();
+        		}
+        		else {
+        			throw new Exception("Le type d'intervention n'est pas de");
         		}
     		}
     	}
@@ -114,8 +117,9 @@ public class Enseignant extends Personne {
      * au nombre d'heure efffectuées pas ce dernier.
      * 
      * @return true si le nombre d'heure prévues est supérieur au nombre d'heures effectuées. Sinon false.
+     * @throws Exception 
      */
-    public boolean enSousService() {
+    public boolean enSousService() throws Exception {
     	return this.heuresPrevues() > this.heuresPlanifiees();
     }
     

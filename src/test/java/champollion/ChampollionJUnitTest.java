@@ -86,7 +86,7 @@ public class ChampollionJUnitTest {
 	}
 	
 	@Test
-	public void testHeurePlanifie() {
+	public void testHeurePlanifie() throws Exception {
 		Intervention i1 = new Intervention(salle, uml, untel, debut, 2);
 		Intervention i2 = new Intervention(salle, java, untel, debut, 2);
 		Intervention i3 = new Intervention(salle, uml, untel, debut, 2);
@@ -101,9 +101,18 @@ public class ChampollionJUnitTest {
 		untel.ajouteIntervention(i4);
 		assertEquals(6,untel.heuresPlanifiees());
 	}
+	
+	@Test
+	public void testHeurePlanifieesIncorrect() throws Exception {
+		Intervention i1 = new Intervention(salle, uml, untel, debut, 2);
+		untel.ajouteIntervention(i1);
+		assertThrows(Exception.class, () -> {
+			assertEquals(6,untel.heuresPlanifiees());
+	    });
+	}
 
 	@Test
-	public void testSousServiceTrue() {
+	public void testSousServiceTrue() throws Exception {
 		Intervention i1 = new Intervention(salle, uml, untel, debut, 2);
 		Intervention i2 = new Intervention(salle, java, untel, debut, 2);
 		Intervention i3 = new Intervention(salle, uml, untel, debut, 2);
@@ -119,7 +128,7 @@ public class ChampollionJUnitTest {
 	}
 	
 	@Test
-	public void testSousServiceFalse() {
+	public void testSousServiceFalse() throws Exception {
 		Intervention i1 = new Intervention(salle, uml, untel, debut, 2);
 		Intervention i2 = new Intervention(salle, java, untel, debut, 2);
 		Intervention i3 = new Intervention(salle, uml, untel, debut, 2);
