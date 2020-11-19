@@ -39,5 +39,7 @@ public class Intervention {
 		return lieu;
 	}
 
-	
+	public void setSalle(Salle salle) {
+		this.lieu = salle;
+	}
 }

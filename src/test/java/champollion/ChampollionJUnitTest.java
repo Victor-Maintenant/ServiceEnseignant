@@ -62,7 +62,10 @@ public class ChampollionJUnitTest {
 	@Test
 	public void testSalle() {
 		Date debut = new Date();
+		Salle salle = new Salle("A100", 30);
 		untel.ajouteIntervention(uml, debut, 2);
-		untel.getInterventions().get(untel.getInterventions().size()-1).
+		untel.getInterventions().get(untel.getInterventions().size()-1).setSalle(salle);
+		assertEquals(30,untel.getInterventions().get(untel.getInterventions().size()-1).getLieu().getCapacite());
+		assertEquals("A100",untel.getInterventions().get(untel.getInterventions().size()-1).getLieu().getIntitule());
 	}
 }
