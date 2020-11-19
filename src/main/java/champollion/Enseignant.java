@@ -78,9 +78,45 @@ public class Enseignant extends Personne {
      * @param volumeTD le volume d'heures de TD
      * @param volumeTP le volume d'heures de TP
      */
-    public void ajouteIntervention(UE ue, Date debut, int duree) {
-        Intervention p = new Intervention(ue, debut, duree);
-        this.interventions.add(p);
+    public void ajouteIntervention(Intervention i) {
+        this.interventions.add(i);
     }
 
+    
+    /**
+     * Calcule le nombre total d'heures réalisées pour cet enseignant en "heures équivalent TD" Pour le calcul : 1 heure
+     * de cours magistral vaut 1,5 h "équivalent TD" 1 heure de TD vaut 1h "équivalent TD" 1 heure de TP vaut 0,75h
+     * "équivalent TD"
+     *
+     * @return le nombre total d'heures "équivalent TD" réalisées pour cet enseignant, arrondi à l'entier le plus proche
+     *
+     */
+    public int heuresPlanifiees() {
+    	int res = 0;
+    	for (Intervention i : this.getInterventions()) {
+    		if (!i.isAnnulee()) {
+    			if (i.getType() == TypeIntervention.CM) {
+        			res += i.getDuree()*1.5;
+        		}
+        		else if(i.getType() == TypeIntervention.TP) {
+    				res += i.getDuree()*0.75;
+    			}
+        		else {
+        			res += i.getDuree();
+        		}
+    		}
+    	}
+    	return res;
+    }
+
+    /**
+     * Vérifie si le nombre d'heure prévues pour l'enseignant est supérieur
+     * au nombre d'heure efffectuées pas ce dernier.
+     * 
+     * @return true si le nombre d'heure prévues est supérieur au nombre d'heures effectuées. Sinon false.
+     */
+    public boolean enSousService() {
+    	return this.heuresPrevues() > this.heuresPlanifiees();
+    }
+    
 }
