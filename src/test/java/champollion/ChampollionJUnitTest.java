@@ -55,7 +55,9 @@ public class ChampollionJUnitTest {
 	@Test
 	public void testAjoutIntervention() {
 		Date debut = new Date();
-		untel.ajouteIntervention(uml, debut, 2);
+		Salle salle = new Salle("A100", 30);
+		Intervention i = new Intervention(salle, uml, untel, debut, 2);
+		untel.ajouteIntervention(i);
 		assertEquals(uml,untel.getInterventions().get(untel.getInterventions().size()-1).getMatiere());
 	}
 	
@@ -63,9 +65,19 @@ public class ChampollionJUnitTest {
 	public void testSalle() {
 		Date debut = new Date();
 		Salle salle = new Salle("A100", 30);
-		untel.ajouteIntervention(uml, debut, 2);
-		untel.getInterventions().get(untel.getInterventions().size()-1).setSalle(salle);
+		Intervention i = new Intervention(salle, uml, untel, debut, 2);
+		untel.ajouteIntervention(i);
 		assertEquals(30,untel.getInterventions().get(untel.getInterventions().size()-1).getLieu().getCapacite());
 		assertEquals("A100",untel.getInterventions().get(untel.getInterventions().size()-1).getLieu().getIntitule());
+	}
+	
+	@Test
+	public void testTypeIntervention() {
+		Date debut = new Date();
+		Salle salle = new Salle("A100", 30);
+		Intervention i = new Intervention(salle, uml, untel, debut, 2);
+		untel.ajouteIntervention(i);
+		untel.getInterventions().get(untel.getInterventions().size()-1).setType(TypeIntervention.CM);
+		assertEquals(TypeIntervention.CM, untel.getInterventions().get(untel.getInterventions().size()-1).getType());
 	}
 }
