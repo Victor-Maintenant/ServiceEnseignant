@@ -105,7 +105,7 @@ public class Enseignant extends Personne {
         			res += i.getDuree();
         		}
         		else {
-        			throw new Exception("Le type d'intervention n'est pas de");
+        			throw new Exception("Le type d'intervention n'est pas de Type");
         		}
     		}
     	}
